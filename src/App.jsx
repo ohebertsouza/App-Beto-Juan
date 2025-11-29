@@ -16,7 +16,7 @@ import {
 } from 'firebase/firestore';
 
 // ============================================================================
-// ⚠️ CONFIGURAÇÃO DO FIREBASE ⚠️
+// ⚠️ CONFIGURAÇÃO DO FIREBASE (Suas Chaves) ⚠️
 // ============================================================================
 const firebaseConfig = {
   apiKey: "AIzaSyDXcyk0BgVPKVt4pOdaSzXCFnPfZGzHaQE",
@@ -54,7 +54,7 @@ const LOVE_QUIZ = [
     ]
   },
   {
-    question: "Em datas especiais (aniversário/namoro), o que você mais valoriza?",
+    question: "Em datas especiais, o que você mais valoriza?",
     options: [
       { text: "Uma carta ou declaração emocionante.", type: "Palavras de Afirmação" },
       { text: "Ele organizar tudo para eu não ter trabalho.", type: "Atos de Serviço" },
@@ -66,38 +66,38 @@ const LOVE_QUIZ = [
   {
     question: "O que mais te magoa em uma briga?",
     options: [
-      { text: "Palavras duras, xingamentos ou críticas.", type: "Palavras de Afirmação" },
+      { text: "Palavras duras e críticas.", type: "Palavras de Afirmação" },
       { text: "Ele não me ajudar a resolver o problema.", type: "Atos de Serviço" },
-      { text: "Ele esquecer de uma data importante depois.", type: "Presentes" },
+      { text: "Ele esquecer de uma data importante.", type: "Presentes" },
       { text: "Ele me ignorar ou não me ouvir.", type: "Tempo de Qualidade" },
-      { text: "Ele se afastar fisicamente ou recusar carinho.", type: "Toque Físico" }
+      { text: "Ele se afastar fisicamente.", type: "Toque Físico" }
     ]
   },
   {
     question: "Como você sabe que ele te ama?",
     options: [
       { text: "Ele me diz isso frequentemente.", type: "Palavras de Afirmação" },
-      { text: "Ele cuida de mim (faz comida, arruma coisas).", type: "Atos de Serviço" },
+      { text: "Ele cuida de mim no dia a dia.", type: "Atos de Serviço" },
       { text: "Ele traz lembranças quando viaja.", type: "Presentes" },
-      { text: "Ele larga tudo para ficar comigo.", type: "Tempo de Qualidade" },
-      { text: "Ele está sempre me tocando ou de mãos dadas.", type: "Toque Físico" }
+      { text: "Ele prioriza ficar comigo.", type: "Tempo de Qualidade" },
+      { text: "Ele está sempre buscando contato físico.", type: "Toque Físico" }
     ]
   },
   {
-    question: "O que você mais sente falta quando estão longe?",
+    question: "O que você mais sente falta longe dele?",
     options: [
       { text: "Das mensagens e conversas.", type: "Palavras de Afirmação" },
-      { text: "Da ajuda dele no dia a dia.", type: "Atos de Serviço" },
-      { text: "Das surpresinhas que ele faz.", type: "Presentes" },
+      { text: "Da ajuda e parceria dele.", type: "Atos de Serviço" },
+      { text: "Das surpresas.", type: "Presentes" },
       { text: "Da companhia e risadas.", type: "Tempo de Qualidade" },
-      { text: "Do cheiro e do abraço dele.", type: "Toque Físico" }
+      { text: "Do cheiro e do abraço.", type: "Toque Físico" }
     ]
   }
 ];
 
-// --- Banco de Tarefas GIGANTE (100+ Itens) ---
+// --- Banco de Tarefas (Versão Completa) ---
 const SUGGESTED_TASKS = [
-  // --- Romeu (Prioridade) ---
+  // --- Romeu ---
   { category: 'Romeu 🐶', title: 'Passeio Matinal Romeu', effort: 3 },
   { category: 'Romeu 🐶', title: 'Passeio Noturno Romeu', effort: 3 },
   { category: 'Romeu 🐶', title: 'Limpar Xixi/Cocô (Casa)', effort: 2 },
@@ -112,97 +112,50 @@ const SUGGESTED_TASKS = [
   { category: 'Romeu 🐶', title: 'Levar ao Vet', effort: 3 },
   { category: 'Romeu 🐶', title: 'Dar Remédio', effort: 1 },
   { category: 'Romeu 🐶', title: 'Limpar Potes', effort: 1 },
-  { category: 'Romeu 🐶', title: 'Brincar/Gastar Energia', effort: 2 },
-
-  // --- Cozinha (Diário) ---
+  
+  // --- Cozinha ---
   { category: 'Cozinha 🥘', title: 'Lavar Louça Café', effort: 1 },
   { category: 'Cozinha 🥘', title: 'Lavar Louça Almoço', effort: 2 },
   { category: 'Cozinha 🥘', title: 'Lavar Louça Jantar', effort: 2 },
-  { category: 'Cozinha 🥘', title: 'Secar Louça', effort: 1 },
-  { category: 'Cozinha 🥘', title: 'Guardar Louça', effort: 1 },
-  { category: 'Cozinha 🥘', title: 'Limpar Pia (Pós uso)', effort: 1 },
-  { category: 'Cozinha 🥘', title: 'Limpar Bancada', effort: 1 },
+  { category: 'Cozinha 🥘', title: 'Secar e Guardar', effort: 1 },
+  { category: 'Cozinha 🥘', title: 'Limpar Pia', effort: 1 },
   { category: 'Cozinha 🥘', title: 'Limpar Fogão (Leve)', effort: 1 },
   { category: 'Cozinha 🥘', title: 'Limpar Fogão (Pesado)', effort: 3 },
-  { category: 'Cozinha 🥘', title: 'Limpar Microondas', effort: 2 },
   { category: 'Cozinha 🥘', title: 'Limpar Geladeira', effort: 3 },
   { category: 'Cozinha 🥘', title: 'Tirar Lixo Orgânico', effort: 1 },
   { category: 'Cozinha 🥘', title: 'Tirar Reciclável', effort: 1 },
-  { category: 'Cozinha 🥘', title: 'Trocar Filtro Água', effort: 2 },
-  { category: 'Cozinha 🥘', title: 'Organizar Potes', effort: 2 },
-  { category: 'Cozinha 🥘', title: 'Limpar Forno', effort: 3 },
-  { category: 'Cozinha 🥘', title: 'Fazer Café da Manhã', effort: 1 },
-  { category: 'Cozinha 🥘', title: 'Fazer Almoço', effort: 3 },
   { category: 'Cozinha 🥘', title: 'Fazer Jantar', effort: 3 },
-  { category: 'Cozinha 🥘', title: 'Guardar Compras', effort: 2 },
   { category: 'Cozinha 🥘', title: 'Encher Garrafas', effort: 1 },
   { category: 'Cozinha 🥘', title: 'Limpar Chão Cozinha', effort: 2 },
-  { category: 'Cozinha 🥘', title: 'Descongelar Freezer', effort: 3 },
-  { category: 'Cozinha 🥘', title: 'Lavar Panos de Prato', effort: 2 },
 
   // --- Banheiro ---
   { category: 'Banheiro 🚿', title: 'Lavar Vaso', effort: 2 },
   { category: 'Banheiro 🚿', title: 'Limpar Box', effort: 3 },
   { category: 'Banheiro 🚿', title: 'Limpar Espelho', effort: 1 },
-  { category: 'Banheiro 🚿', title: 'Trocar Toalhas Rosto', effort: 1 },
-  { category: 'Banheiro 🚿', title: 'Trocar Toalhas Banho', effort: 1 },
+  { category: 'Banheiro 🚿', title: 'Trocar Toalhas', effort: 1 },
   { category: 'Banheiro 🚿', title: 'Tirar Lixo Banheiro', effort: 1 },
   { category: 'Banheiro 🚿', title: 'Limpar Ralo', effort: 2 },
   { category: 'Banheiro 🚿', title: 'Repor Papel', effort: 1 },
-  { category: 'Banheiro 🚿', title: 'Lavar Tapete Banheiro', effort: 2 },
-  { category: 'Banheiro 🚿', title: 'Organizar Bancada', effort: 1 },
-  { category: 'Banheiro 🚿', title: 'Limpar Azulejos', effort: 3 },
 
-  // --- Quarto ---
+  // --- Quarto/Sala ---
   { category: 'Quarto 🛏️', title: 'Arrumar Cama', effort: 1 },
   { category: 'Quarto 🛏️', title: 'Trocar Lençóis', effort: 2 },
-  { category: 'Quarto 🛏️', title: 'Organizar Guarda-Roupa', effort: 3 },
-  { category: 'Quarto 🛏️', title: 'Guardar Roupas Limpas', effort: 2 },
-  { category: 'Quarto 🛏️', title: 'Separar Roupa Suja', effort: 1 },
-  { category: 'Quarto 🛏️', title: 'Limpar Criado-Mudo', effort: 1 },
-  { category: 'Quarto 🛏️', title: 'Organizar Sapatos', effort: 2 },
-  { category: 'Quarto 🛏️', title: 'Virar Colchão', effort: 2 },
-  { category: 'Quarto 🛏️', title: 'Aspirar embaixo Cama', effort: 2 },
-
-  // --- Sala/Escritório ---
+  { category: 'Quarto 🛏️', title: 'Guardar Roupas', effort: 2 },
   { category: 'Sala 🛋️', title: 'Aspirar Sofá', effort: 2 },
-  { category: 'Sala 🛋️', title: 'Organizar Almofadas', effort: 1 },
   { category: 'Sala 🛋️', title: 'Limpar TV', effort: 1 },
-  { category: 'Sala 🛋️', title: 'Organizar Mesa Centro', effort: 1 },
-  { category: 'Escritório 💻', title: 'Organizar Mesa', effort: 1 },
-  { category: 'Escritório 💻', title: 'Limpar Teclado', effort: 1 },
-  { category: 'Escritório 💻', title: 'Organizar Papéis', effort: 2 },
   { category: 'Escritório 💻', title: 'Tirar Lixo Escritório', effort: 1 },
 
-  // --- Geral/Extra ---
+  // --- Geral ---
   { category: 'Geral 🧹', title: 'Varrer Casa Toda', effort: 2 },
   { category: 'Geral 🧹', title: 'Passar Pano Chão', effort: 3 },
   { category: 'Geral 🧹', title: 'Tirar Pó Móveis', effort: 2 },
   { category: 'Geral 🧹', title: 'Limpar Vidros', effort: 3 },
   { category: 'Geral 🧹', title: 'Regar Plantas', effort: 1 },
-  { category: 'Geral 🧹', title: 'Poda Plantas', effort: 2 },
   { category: 'Geral 🧹', title: 'Colocar Roupa Lavar', effort: 1 },
   { category: 'Geral 🧹', title: 'Estender Roupa', effort: 2 },
   { category: 'Geral 🧹', title: 'Recolher Roupa', effort: 1 },
-  { category: 'Geral 🧹', title: 'Passar Roupa', effort: 2 },
-  { category: 'Geral 🧹', title: 'Limpar Ventiladores', effort: 2 },
-  { category: 'Geral 🧹', title: 'Trocar Lâmpada', effort: 2 },
   { category: 'Geral 🧹', title: 'Receber Delivery', effort: 1 },
-  { category: 'Geral 🧹', title: 'Desmontar Caixas', effort: 1 },
-  { category: 'Geral 🧹', title: 'Limpar Interruptores', effort: 1 },
-  { category: 'Geral 🧹', title: 'Limpar Rodapés', effort: 3 },
-  { category: 'Geral 🧹', title: 'Tirar Teias Teto', effort: 1 },
-  { category: 'Extra 🔧', title: 'Consertar Algo', effort: 3 },
-  { category: 'Extra 🔧', title: 'Pintar Parede', effort: 3 },
-  { category: 'Extra 🔧', title: 'Organizar Dispensa', effort: 2 },
-  { category: 'Extra 🔧', title: 'Lavar Carro', effort: 3 },
-  { category: 'Extra 🔧', title: 'Abastecer Carro', effort: 1 },
-  { category: 'Extra 🔧', title: 'Levar Carro Revisão', effort: 2 },
-  { category: 'Extra 🔧', title: 'Planejar Cardápio', effort: 2 },
   { category: 'Extra 🔧', title: 'Fazer Lista Compras', effort: 1 },
-  { category: 'Extra 🔧', title: 'Pedir Gás/Água', effort: 1 },
-  { category: 'Extra 🔧', title: 'Resolver Conta Luz/Net', effort: 2 },
-  { category: 'Extra 🔧', title: 'Costurar Botão', effort: 2 },
 ];
 
 function ConfigErrorScreen() {
@@ -268,10 +221,14 @@ function AppContent() {
   useEffect(() => {
     if (user && profileName) {
         const fetchProfile = async () => {
-            const docRef = doc(db, APP_PATH, 'profiles', profileName);
-            const docSnap = await getDoc(docRef);
-            if (docSnap.exists()) setUserProfileData(docSnap.data());
-            else setUserProfileData(null); 
+            try {
+                const docRef = doc(db, APP_PATH, 'profiles', profileName);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) setUserProfileData(docSnap.data());
+                else setUserProfileData(null); 
+            } catch(e) {
+                console.error("Erro ao buscar perfil", e);
+            }
         };
         fetchProfile();
     }
@@ -369,36 +326,43 @@ function AuthScreen({ onAuthSuccess }) {
 
 function ProfileSetup({ user, profileName, existingData, onComplete }) {
     const [step, setStep] = useState(1);
+    const [error, setError] = useState(null);
     const [formData, setFormData] = useState({
         income: existingData?.income || '', age: existingData?.age || '', color: existingData?.color || '',
         music: existingData?.music || '', relationshipView: existingData?.relationshipView || '',
         difficulties: existingData?.difficulties || ''
     });
-    // Estado para o Quiz: armazena as respostas (índice da opção escolhida)
     const [quizAnswers, setQuizAnswers] = useState(existingData?.quizAnswers || {});
 
-    // Validação dos Passos
-    const isStep1Valid = formData.income && formData.income.trim() !== '';
+    // Validações
+    const isStep1Valid = formData.income && formData.income.toString().trim() !== '';
     const isStep2Valid = formData.age && formData.color && formData.music;
     const isStep3Valid = formData.relationshipView && formData.difficulties;
-    // O quiz tem 5 perguntas, precisamos de 5 respostas
     const isStep4Valid = Object.keys(quizAnswers).length === LOVE_QUIZ.length;
 
     const handleQuizOptionClick = (questionIndex, option) => {
         setQuizAnswers(prev => ({
             ...prev,
-            [questionIndex]: option.type // Salva o tipo (linguagem) diretamente
+            [questionIndex]: option.type
         }));
     };
 
     const handleSave = async () => {
+        setError(null);
         try {
-            // Calcular Linguagem Dominante
+            if (!profileName) throw new Error("Erro de Sessão: Nome do perfil não encontrado.");
+
+            // Calcular Linguagem Dominante com segurança
             const counts = {};
-            Object.values(quizAnswers).forEach(type => {
-                counts[type] = (counts[type] || 0) + 1;
-            });
-            const dominantLanguage = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+            const answers = Object.values(quizAnswers);
+            
+            if (answers.length === 0) {
+                // Fallback de segurança se algo der muito errado
+                throw new Error("Responda o quiz antes de salvar.");
+            }
+
+            answers.forEach(type => { counts[type] = (counts[type] || 0) + 1; });
+            const dominantLanguage = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b, "Indefinido");
 
             await setDoc(doc(db, APP_PATH, 'profiles', profileName), {
                 ...formData, 
@@ -407,10 +371,11 @@ function ProfileSetup({ user, profileName, existingData, onComplete }) {
                 profileCompleted: true, 
                 updatedAt: serverTimestamp()
             }, { merge: true });
+            
             onComplete();
         } catch (error) {
             console.error("Erro ao salvar perfil:", error);
-            alert("Erro ao salvar perfil: " + error.message);
+            setError(error.message || "Erro desconhecido ao salvar. Verifique sua conexão.");
         }
     };
 
@@ -425,9 +390,7 @@ function ProfileSetup({ user, profileName, existingData, onComplete }) {
             {step === 1 && (
                 <div className="space-y-4 animate-fadeIn">
                     <h2 className="font-bold text-lg text-gray-800">1. Financeiro (80/20)</h2>
-                    <p className="text-xs text-gray-500 bg-yellow-50 p-3 rounded border border-yellow-100">
-                        Obrigatório para o cálculo justo das contas.
-                    </p>
+                    <p className="text-xs text-gray-500 bg-yellow-50 p-3 rounded border border-yellow-100">Obrigatório para o cálculo justo das contas.</p>
                     <div>
                         <label className="text-xs font-bold text-gray-500 uppercase">Renda Mensal Líquida</label>
                         <input type="number" className="w-full border p-3 rounded-xl text-lg mt-1" placeholder="R$ 0.00" value={formData.income} onChange={e=>setFormData({...formData, income: e.target.value})} />
@@ -439,18 +402,9 @@ function ProfileSetup({ user, profileName, existingData, onComplete }) {
             {step === 2 && (
                 <div className="space-y-4 animate-fadeIn">
                     <h2 className="font-bold text-lg text-gray-800">2. Sobre Você</h2>
-                    <div>
-                        <label className="text-xs font-bold text-gray-500 uppercase">Idade</label>
-                        <input type="number" className="w-full border p-3 rounded-xl mt-1" value={formData.age} onChange={e=>setFormData({...formData, age: e.target.value})} />
-                    </div>
-                    <div>
-                        <label className="text-xs font-bold text-gray-500 uppercase">Cor Favorita</label>
-                        <input type="text" className="w-full border p-3 rounded-xl mt-1" value={formData.color} onChange={e=>setFormData({...formData, color: e.target.value})} />
-                    </div>
-                    <div>
-                        <label className="text-xs font-bold text-gray-500 uppercase">Músicas/Bandas que ama</label>
-                        <textarea className="w-full border p-3 rounded-xl mt-1 h-24" value={formData.music} onChange={e=>setFormData({...formData, music: e.target.value})} />
-                    </div>
+                    <div><label className="text-xs font-bold text-gray-500 uppercase">Idade</label><input type="number" className="w-full border p-3 rounded-xl mt-1" value={formData.age} onChange={e=>setFormData({...formData, age: e.target.value})} /></div>
+                    <div><label className="text-xs font-bold text-gray-500 uppercase">Cor Favorita</label><input type="text" className="w-full border p-3 rounded-xl mt-1" value={formData.color} onChange={e=>setFormData({...formData, color: e.target.value})} /></div>
+                    <div><label className="text-xs font-bold text-gray-500 uppercase">Músicas/Bandas</label><textarea className="w-full border p-3 rounded-xl mt-1 h-24" value={formData.music} onChange={e=>setFormData({...formData, music: e.target.value})} /></div>
                     <button disabled={!isStep2Valid} onClick={()=>setStep(3)} className="w-full bg-rose-500 text-white py-3 rounded-xl font-bold mt-4 disabled:opacity-50">Próximo</button>
                 </div>
             )}
@@ -458,46 +412,26 @@ function ProfileSetup({ user, profileName, existingData, onComplete }) {
             {step === 3 && (
                 <div className="space-y-4 animate-fadeIn">
                     <h2 className="font-bold text-lg text-gray-800">3. Relacionamento</h2>
-                    <div>
-                        <label className="text-xs font-bold text-gray-500 uppercase">Visão do relacionamento hoje</label>
-                        <textarea className="w-full border p-3 rounded-xl mt-1 h-24" placeholder="Está bom? O que pode melhorar?" value={formData.relationshipView} onChange={e=>setFormData({...formData, relationshipView: e.target.value})} />
-                    </div>
-                    <div>
-                        <label className="text-xs font-bold text-gray-500 uppercase">Maior dificuldade atual</label>
-                        <textarea className="w-full border p-3 rounded-xl mt-1 h-24" placeholder="O que mais te incomoda?" value={formData.difficulties} onChange={e=>setFormData({...formData, difficulties: e.target.value})} />
-                    </div>
+                    <div><label className="text-xs font-bold text-gray-500 uppercase">Visão do relacionamento</label><textarea className="w-full border p-3 rounded-xl mt-1 h-24" placeholder="Está bom? O que pode melhorar?" value={formData.relationshipView} onChange={e=>setFormData({...formData, relationshipView: e.target.value})} /></div>
+                    <div><label className="text-xs font-bold text-gray-500 uppercase">Maior dificuldade atual</label><textarea className="w-full border p-3 rounded-xl mt-1 h-24" placeholder="O que mais te incomoda?" value={formData.difficulties} onChange={e=>setFormData({...formData, difficulties: e.target.value})} /></div>
                     <button disabled={!isStep3Valid} onClick={()=>setStep(4)} className="w-full bg-rose-500 text-white py-3 rounded-xl font-bold mt-4 disabled:opacity-50">Ir para o Quiz</button>
                 </div>
             )}
 
             {step === 4 && (
                 <div className="space-y-6 animate-fadeIn pb-20">
-                    <div className="bg-rose-50 p-4 rounded-xl text-center">
-                        <h2 className="font-bold text-lg text-rose-700">Quiz do Amor ❤️</h2>
-                        <p className="text-xs text-rose-500">Responda com sinceridade para descobrirmos sua linguagem.</p>
-                    </div>
-                    
+                    <div className="bg-rose-50 p-4 rounded-xl text-center"><h2 className="font-bold text-lg text-rose-700">Quiz do Amor ❤️</h2><p className="text-xs text-rose-500">Responda para descobrirmos sua linguagem.</p></div>
                     {LOVE_QUIZ.map((q, idx) => (
                         <div key={idx} className="bg-white border border-gray-100 p-4 rounded-xl shadow-sm">
                             <p className="font-bold text-gray-800 mb-3 text-sm">{idx + 1}. {q.question}</p>
-                            <div className="space-y-2">
-                                {q.options.map((opt, optIdx) => (
-                                    <button 
-                                        key={optIdx} 
-                                        onClick={() => handleQuizOptionClick(idx, opt)}
-                                        className={`w-full text-left p-3 rounded-lg text-xs transition-all border ${quizAnswers[idx] === opt.type ? 'bg-rose-500 text-white border-rose-500 font-bold' : 'bg-gray-50 text-gray-600 border-transparent hover:bg-gray-100'}`}
-                                    >
-                                        {opt.text}
-                                    </button>
-                                ))}
-                            </div>
+                            <div className="space-y-2">{q.options.map((opt, optIdx) => (
+                                <button key={optIdx} onClick={() => handleQuizOptionClick(idx, opt)} className={`w-full text-left p-3 rounded-lg text-xs transition-all border ${quizAnswers[idx] === opt.type ? 'bg-rose-500 text-white border-rose-500 font-bold' : 'bg-gray-50 text-gray-600 border-transparent hover:bg-gray-100'}`}>{opt.text}</button>
+                            ))}</div>
                         </div>
                     ))}
-
+                    {error && <div className="p-3 bg-red-100 text-red-700 text-sm rounded-lg border border-red-200 mt-4">{error}</div>}
                     <div className="sticky bottom-0 bg-white pt-4 pb-2 border-t mt-4">
-                        <button disabled={!isStep4Valid} onClick={handleSave} className="w-full bg-green-500 text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
-                            {isStep4Valid ? 'Finalizar e Salvar Perfil' : `Responda todas (${Object.keys(quizAnswers).length}/5)`}
-                        </button>
+                        <button disabled={!isStep4Valid} onClick={handleSave} className="w-full bg-green-500 text-white py-4 rounded-xl font-bold shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">{isStep4Valid ? 'Finalizar e Salvar Perfil' : `Responda todas (${Object.keys(quizAnswers).length}/5)`}</button>
                     </div>
                 </div>
             )}
@@ -587,7 +521,7 @@ function Curiosities({ user, profileName, onEditProfile }) {
     // Se o perfil do usuário logado estiver incompleto, mostra o CTA
     if (isProfileIncomplete) {
         return (
-            <div className="h-full flex flex-col items-center justify-center text-center p-8 space-y-6 animate-pulse-fade-in">
+            <div className="h-full flex flex-col items-center justify-center text-center p-8 space-y-6 animate-fadeIn">
                 <div className="bg-purple-100 p-6 rounded-full">
                     <Sparkles className="text-purple-500" size={64} />
                 </div>
@@ -610,7 +544,7 @@ function Curiosities({ user, profileName, onEditProfile }) {
 
     // Se estiver completo, mostra os dados
     return (
-        <div className="space-y-6 pb-20 animate-pulse-fade-in">
+        <div className="space-y-6 pb-20 animate-fadeIn">
             <div className="bg-indigo-600 text-white p-6 rounded-xl shadow-lg flex justify-between items-start">
                 <div>
                     <h2 className="font-bold text-xl flex items-center gap-2"><Sparkles /> Raio-X do Casal</h2>
