@@ -29,7 +29,7 @@ const firebaseConfig = {
 };
 
 // Validação
-const isConfigured = firebaseConfig.apiKey !== "AIzaSyDXcyk0BgVPKVt4pOdaSzXCFnPfZGzHaQE";
+const isConfigured = firebaseConfig.apiKey !== "SUA_API_KEY_AQUI";
 
 // Inicialização
 const app = initializeApp(firebaseConfig);
